@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Books</h1>
+    <div class="book-list">
+        {% for book in books %}
+            <div class="book-item">
+                {% if book.image %}
+                    <img src="{{ book.image.url }}" alt="{{ book.title }}" style="max-width: 150px;">
+                {% endif %}
+                <h2><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h2>
+                <p>By <a href="{{ book.author.get_absolute_url }}">{{ book.author.name }}</a></p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

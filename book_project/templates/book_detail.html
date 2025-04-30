@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                {% if book.image %}
+                    <img src="{{ book.image.url }}" alt="{{ book.title }}" class="img-fluid rounded">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <h1 class="card-title mb-4">{{ book.title }}</h1>
+                <dl class="row">
+                    <dt class="col-sm-3">Published Date:</dt>
+                    <dd class="col-sm-9">{{ book.publish_date }}</dd>
+
+                    <dt class="col-sm-3">Added to Site:</dt>
+                    <dd class="col-sm-9">{{ book.add_to_site_at|date:"F j, Y, g:i a" }}</dd>
+
+                    <dt class="col-sm-3">Author:</dt>
+                    <dd class="col-sm-9">
+                        <a href="{% url 'author-detail' book.author.pk %}" class="text-decoration-none">
+                            {{ book.author.name }}
+                        </a>
+                    </dd>
+
+                    <dt class="col-sm-3">Price:</dt>
+                    <dd class="col-sm-9">${{ book.price }}</dd>
+
+                    <dt class="col-sm-3">Age Group:</dt>
+                    <dd class="col-sm-9">{{ book.get_appropriate_age_display }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

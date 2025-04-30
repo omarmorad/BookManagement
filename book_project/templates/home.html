@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome to the Book Collection</h2>
+<ul>
+    <li><a href="{% url 'book-list' %}">View All Books</a></li>
+    <li><a href="{% url 'author-list' %}">View All Authors</a></li>
+</ul>
+{% endblock %}

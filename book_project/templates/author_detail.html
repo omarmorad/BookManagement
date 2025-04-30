@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h1 class="card-title mb-4">{{ author.name }}</h1>
+        
+        <h2 class="h4 mb-3">Books by this Author:</h2>
+        <div class="book-list">
+            {% for book in books %}
+                <div class="book-item">
+                    {% if book.image %}
+                        <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                    {% endif %}
+                    <h2><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></h2>
+                    <p class="text-muted mb-2">Published: {{ book.publish_date }}</p>
+                    <p class="mb-2">${{ book.price }}</p>
+                    <p class="mb-0 badge bg-primary">{{ book.get_appropriate_age_display }}</p>
+                </div>
+            {% empty %}
+                <p>No books available for this author.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
