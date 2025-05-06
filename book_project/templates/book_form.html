@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h1 class="card-title mb-4">{% if form.instance.pk %}Edit Book{% else %}Add New Book{% endif %}</h1>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                {{ form.title.errors }}
+                <input type="text" name="{{ form.title.name }}" id="{{ form.title.id_for_label }}" 
+                       class="form-control" value="{{ form.title.value|default:'' }}">
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.author.id_for_label }}" class="form-label">Author</label>
+                {{ form.author.errors }}
+                {{ form.author }}
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.publish_date.id_for_label }}" class="form-label">Publish Date</label>
+                {{ form.publish_date.errors }}
+                <input type="date" name="{{ form.publish_date.name }}" id="{{ form.publish_date.id_for_label }}" 
+                       class="form-control" value="{{ form.publish_date.value|date:'Y-m-d'|default:'' }}">
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.price.id_for_label }}" class="form-label">Price</label>
+                {{ form.price.errors }}
+                <input type="number" name="{{ form.price.name }}" id="{{ form.price.id_for_label }}" 
+                       class="form-control" step="0.01" value="{{ form.price.value|default:'' }}">
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.appropriate_age.id_for_label }}" class="form-label">Appropriate Age</label>
+                {{ form.appropriate_age.errors }}
+                {{ form.appropriate_age }}
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.image.id_for_label }}" class="form-label">Book Cover Image</label>
+                {{ form.image.errors }}
+                <input type="file" name="{{ form.image.name }}" id="{{ form.image.id_for_label }}" 
+                       class="form-control" accept="image/*">
+                {% if form.instance.image %}
+                    <div class="mt-2">
+                        <p>Current image: <a href="{{ form.instance.image.url }}" target="_blank">View</a></p>
+                        <img src="{{ form.instance.image.url }}" alt="{{ form.instance.title }}" 
+                             style="max-width: 150px; max-height: 150px;" class="mt-2 img-thumbnail">
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Save Book
+                </button>
+                <a href="{% url 'book-list' %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
